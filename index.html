@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GLP-1 Discount Watch</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#101522;color:#f4f5ff;font-family:Arial,sans-serif}
+header{padding:30px 20px;background:#20213e;text-align:center}
+h1{margin:0;font-size:27px}
+header p{color:#c9c6e6}
+main{max-width:800px;margin:auto;padding:20px}
+.card{background:#20283a;border:1px solid #394258;border-radius:15px;padding:18px;margin:14px 0}
+h2{font-size:19px}
+small{color:#b9c2d4}
+.status{color:#9ce4b3;font-weight:bold}
+.note{color:#b9c2d4;line-height:1.6}
+footer{text-align:center;padding:25px;color:#aab2c5;font-size:12px}
+</style>
+</head>
+<body>
+<header>
+<h1>💜 GLP-1 Discount Watch</h1>
+<p>Pharmacy discount monitoring dashboard</p>
+</header>
+<main>
+<div class="card">
+<h2>🔎 Monitoring overview</h2>
+<p><strong>7</strong> pharmacy discount pages configured</p>
+<p class="status">● Dashboard ready</p>
+<small>Live updates are not connected yet.</small>
+</div>
+<h2>💊 Monitored pharmacies</h2>
+<div id="providers"></div>
+<div class="card">
+<h2>📋 Recent changes</h2>
+<p class="note">No published change history yet. Future updates will appear here.</p>
+</div>
+<p class="note">Discount codes and prices must be verified with the pharmacy before ordering.</p>
+</main>
+<footer>GLP-1 Discount Watch · Public dashboard</footer>
+<script>
+const providers=[
+"Click2Pharmacy",
+"Cloud Pharmacy",
+"Medicine Marketplace",
+"Next Script Pharmacy",
+"The Family Chemist",
+"The Independent Pharmacy",
+"YourPharmacy"
+];
+document.getElementById("providers").innerHTML=providers.map(name=>'<div class="card"><strong>'+name+'</strong><p class="note">Discount information awaiting connection</p></div>').join("");
+</script>
+</body>
+</html>
