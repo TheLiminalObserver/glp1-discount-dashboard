@@ -41,16 +41,59 @@ footer{text-align:center;padding:25px;color:#aab2c5;font-size:12px}
 </main>
 <footer>GLP-1 Discount Watch · Public dashboard</footer>
 <script>
-const providers=[
-"Click2Pharmacy",
-"Cloud Pharmacy",
-"Medicine Marketplace",
-"Next Script Pharmacy",
-"The Family Chemist",
-"The Independent Pharmacy",
-"YourPharmacy"
+
+const fallbackProviders = [
+  "Click2Pharmacy",
+  "Cloud Pharmacy",
+  "Medicine Marketplace",
+  "Next Script Pharmacy",
+  "The Family Chemist",
+  "The Independent Pharmacy",
+  "YourPharmacy"
 ];
-document.getElementById("providers").innerHTML=providers.map(name=>'<div class="card"><strong>'+name+'</strong><p class="note">Discount information awaiting connection</p></div>').join("");
+
+const container = document.getElementById("providers");
+
+function renderProviders(providers) {
+  container.innerHTML = "";
+  providers.forEach(item => {
+    const name = typeof item === "string"
+      ? item : item.name;
+    if (!name) return;
+
+    const card = document.createElement("div");
+    card.className = "card";
+    const heading = document.createElement("h3");
+    heading.textContent = name;
+    const note = document.createElement("p");
+    note.className = "note";
+    note.textContent = "Discount information awaiting connection";
+    card.append(heading, note);
+    container.appendChild(card);
+  });
+}
+
+renderProviders(fallbackProviders);
+
+async function loadDiscounts() {
+  try {
+    const response = await fetch("./discounts.json", {
+      cache: "no-store"
+    });
+    if (!response.ok) throw new Error("Data unavailable");
+
+    const data = await response.json();
+    if (Array.isArray(data.providers) && data.providers.length) {
+      renderProviders(data.providers);
+    }
+    console.log("Dashboard data loaded", data.last_updated);
+  } catch (error) {
+    console.warn("Using default provider list", error);
+  }
+}
+
+loadDiscounts();
+
 </script>
 </body>
 </html>
